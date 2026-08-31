@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.features-gen/
+playwright-report/
+test-results/
+allure-results/
+allure-report/
+blob-report/
+playwright/.cache/
+.env
+.env.local
+*.log
+.DS_Store
+.idea/
+.vscode/
