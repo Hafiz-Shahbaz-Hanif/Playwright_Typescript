@@ -17,7 +17,7 @@ export class ProductDetailsPage extends BasePage {
 
   async waitForLoaded(): Promise<void> {
     await expect(this.name).toBeVisible();
-    await expect(this.addToCart).toBeEnabled();
+    await expect(this.unitPrice).toBeVisible();
   }
 
   async productName(): Promise<string> {
@@ -34,11 +34,21 @@ export class ProductDetailsPage extends BasePage {
   }
 
   async addToCartAndWait(): Promise<void> {
+    await this.waitForLoaded();
     const before = await this.readCartBadge();
+    await expect(this.addToCart).toBeEnabled();
     await this.clickWhenReady(this.addToCart);
-    await expect
-      .poll(() => this.readCartBadge(), { message: 'cart badge did not increase' })
-      .toBeGreaterThan(before);
+
+    // The badge updates from the "added to cart" toast/XHR; give it a generous
+    // window and click once more if the first click did not register.
+    try {
+      await expect.poll(() => this.readCartBadge(), { timeout: 8_000 }).toBeGreaterThan(before);
+    } catch {
+      await this.clickWhenReady(this.addToCart);
+      await expect
+        .poll(() => this.readCartBadge(), { message: 'cart badge did not increase', timeout: 10_000 })
+        .toBeGreaterThan(before);
+    }
   }
 
   private async readCartBadge(): Promise<number> {

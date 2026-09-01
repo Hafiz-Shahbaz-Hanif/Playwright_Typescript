@@ -8,6 +8,7 @@ export class ProductsPage extends BasePage {
   private readonly searchSubmit = this.byTest('search-submit');
   private readonly productCards = this.page.locator('a[data-test^="product-"]');
   private readonly productNames = this.byTest('product-name');
+  private readonly productPrices = this.byTest('product-price');
   private readonly searchCompleted = this.byTest('search_completed');
   private readonly sortDropdown = this.byTest('sort');
 
@@ -38,13 +39,50 @@ export class ProductsPage extends BasePage {
   }
 
   async openFirstProduct(): Promise<string> {
+    await this.productCards.first().waitFor({ state: 'visible', timeout: 15_000 });
     const name = (await this.productNames.first().innerText()).trim();
     await this.clickWhenReady(this.productCards.first());
     return name;
   }
 
+  async openProductByIndex(index: number): Promise<string> {
+    const card = this.productCards.nth(index);
+    const name = (await this.productNames.nth(index).innerText()).trim();
+    await this.clickWhenReady(card);
+    return name;
+  }
+
   async sortBy(option: string): Promise<void> {
-    await this.sortDropdown.selectOption({ label: option });
-    await this.page.waitForLoadState('networkidle');
+    await Promise.all([
+      this.page
+        .waitForResponse((r) => r.url().includes('/products') && r.request().method() === 'GET', {
+          timeout: 15_000,
+        })
+        .catch(() => undefined),
+      this.sortDropdown.selectOption({ label: option }),
+    ]);
+    // Wait until the grid has settled: cards visible and a stable first item.
+    await expect(this.productCards.first()).toBeVisible();
+    let last = '';
+    await expect
+      .poll(
+        async () => {
+          const current = await this.productNames.first().innerText().catch(() => '');
+          const stable = current !== '' && current === last;
+          last = current;
+          return stable;
+        },
+        { timeout: 15_000, intervals: [300, 300, 500] },
+      )
+      .toBe(true);
+  }
+
+  async productNamesText(): Promise<string[]> {
+    return (await this.productNames.allInnerTexts()).map((t) => t.trim());
+  }
+
+  async productPriceValues(): Promise<number[]> {
+    const raw = await this.productPrices.allInnerTexts();
+    return raw.map((t) => Number(t.replace(/[^0-9.]/g, ''))).filter((n) => !Number.isNaN(n));
   }
 }
