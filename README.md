@@ -38,6 +38,31 @@ cross-browser execution and **Allure** reporting.
 - **Parallel + cross-browser.** `fullyParallel`, sharded workers, Chromium/Firefox/WebKit projects.
 - **Stable by construction.** Web-first assertions, `expect.poll`, app-emitted readiness
   markers (`search_completed`) instead of hard waits.
+- **Data-driven at scale.** ~140 scenarios, most as `Scenario Outline` tables — e.g. 24
+  create round-trips, 12 full updates, 12 filter lookups, 13 quantity variations — so
+  coverage grows by adding a table row, not a test.
+- **Developed with an agentic-AI workflow.** `CLAUDE.md` and `.claude/` define the
+  conventions plus subagents (`flaky-test-triager`, `page-object-author`,
+  `api-contract-guardian`) and skills (`new-bdd-scenario`, `allure-triage`).
+
+---
+
+## Coverage
+
+| Area | Scenarios | Notes |
+|---|---|---|
+| UI — auth | 6 | valid sign-in + unknown-account rejection (outline) |
+| UI — catalogue search | 19 | keyword match, case-insensitivity, no-results |
+| UI — browse & sort | 13 | sort by name/price asc/desc, open product by position |
+| UI — cart | 18 | add first search result (11 tools), quantity kept (7 values) |
+| UI — checkout | 2 | full bank-transfer purchase, quantity carried to cart |
+| API — lifecycle | 4 | create/read, PUT, PATCH, DELETE |
+| API — create (data-driven) | 24 | varied names, prices, deposits, date ranges → round-trip |
+| API — update / patch | 24 | full replace + single-field patch, keep-the-rest checks |
+| API — filter | 12 | `GET /booking?firstname=&lastname=` lookups |
+| API — delete | 6 | delete → 404 |
+| API — auth | 6 | token issued / rejected |
+| API — contract & negative | 13 | schema validation, response-time budget, 4xx/5xx, 403, 404 |
 
 ---
 
@@ -45,9 +70,13 @@ cross-browser execution and **Allure** reporting.
 
 ```
 .
+├── CLAUDE.md                   # conventions for AI agents working in this repo
+├── .claude/
+│   ├── agents/                 # flaky-test-triager, page-object-author, api-contract-guardian
+│   └── skills/                 # new-bdd-scenario, allure-triage
 ├── features/
-│   ├── ui/                     # login, catalogue search, cart & checkout
-│   └── api/                    # booking lifecycle, contract, negative
+│   ├── ui/                     # auth, search, browse/sort, cart, checkout
+│   └── api/                    # lifecycle, create, update, patch, filter, delete, auth, contract, negative
 ├── src/
 │   ├── pages/                  # Page Object Model (BasePage + one class per screen)
 │   ├── api/                    # typed API client, zod schemas, Allure HTTP logger
