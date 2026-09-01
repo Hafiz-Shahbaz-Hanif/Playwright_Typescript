@@ -122,6 +122,16 @@ export class BookingClient {
     return bookingIdListSchema.parse(await res.json()).map((b) => b.bookingid);
   }
 
+  /** GET /booking with any of firstname / lastname / checkin / checkout filters. */
+  async listBookingIdsWhere(filters: Record<string, string>): Promise<number[]> {
+    const query = new URLSearchParams(filters).toString();
+    const res = await this.timed(`list bookings ?${query}`, 'GET', `/booking?${query}`, () =>
+      this.request.get(`/booking?${query}`, { headers: { Accept: 'application/json' } }),
+    );
+    expect(res.status()).toBe(200);
+    return bookingIdListSchema.parse(await res.json()).map((b) => b.bookingid);
+  }
+
   expectWithinBudget(budgetMs = RESPONSE_TIME_BUDGET_MS): void {
     expect(
       this.lastElapsedMs,
