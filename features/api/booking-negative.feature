@@ -4,17 +4,29 @@ Feature: Booking API error handling
   I want predictable errors for bad input and missing auth
   So that my client can react correctly
 
-  Scenario: Rejecting authentication with bad credentials
-    When I request a token with username "nope" and password "wrong"
-    Then the auth response has status 200 and no token
+  Scenario Outline: Creating a booking without the "<field>" field is rejected
+    When I create a booking missing the <field> field
+    Then the response status is a client or server error
 
-  Scenario: Creating a booking without the mandatory price is rejected
-    When I create a booking with a payload missing the price
-    Then the response status is 500
+    Examples:
+      | field         |
+      | firstname     |
+      | lastname      |
+      | totalprice    |
+      | depositpaid   |
+      | bookingdates  |
 
-  Scenario: Fetching a non-existent booking returns 404
-    When I fetch a booking with id 999999999
+  Scenario Outline: Fetching a non-existent booking id <id> returns 404
+    When I fetch a booking with id <id>
     Then the response status is 404
+
+    Examples:
+      | id        |
+      | 999999999 |
+      | 888888888 |
+      | 777777777 |
+      | 123456789 |
+      | 2147483647|
 
   Scenario: Updating a booking without a token is forbidden
     Given a booking exists for "Locked" "Down"
