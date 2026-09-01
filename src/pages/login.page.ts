@@ -23,6 +23,24 @@ export class LoginPage extends BasePage {
     await this.clickWhenReady(this.submit);
   }
 
+  /**
+   * Sign in and land on the account page. Retries once if the first attempt is
+   * bounced back to the login form (the public demo occasionally rate-limits a
+   * burst of parallel sign-ins).
+   */
+  async signInAndLandOnAccount(email: string, password: string): Promise<void> {
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      await this.login(email, password);
+      try {
+        await this.page.waitForURL(/\/account/, { timeout: 15_000 });
+        return;
+      } catch {
+        if (attempt === 2) throw new Error('Login did not reach /account after 2 attempts');
+        await this.open();
+      }
+    }
+  }
+
   async expectLoginError(message: string): Promise<void> {
     await expect(this.loginError).toContainText(message);
   }

@@ -7,7 +7,7 @@ Given('the login page is open', async ({ loginPage }) => {
 });
 
 When('I sign in with valid customer credentials', async ({ loginPage }) => {
-  await loginPage.login(env.ui.email, env.ui.password);
+  await loginPage.signInAndLandOnAccount(env.ui.email, env.ui.password);
 });
 
 When(

@@ -2,10 +2,9 @@ import { expect } from '@playwright/test';
 import { Given, When, Then } from '../../fixtures/fixtures';
 import { env } from '../../../env/config';
 
-Given('I am signed in as a customer', async ({ loginPage, page }) => {
+Given('I am signed in as a customer', async ({ loginPage }) => {
   await loginPage.open();
-  await loginPage.login(env.ui.email, env.ui.password);
-  await expect(page).toHaveURL(/\/account/);
+  await loginPage.signInAndLandOnAccount(env.ui.email, env.ui.password);
 });
 
 When('I add the first catalogue product to my cart', async ({ productsPage, productDetailsPage, world }) => {
