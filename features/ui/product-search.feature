@@ -13,6 +13,37 @@ Feature: Product catalogue search
     Then every product in the results contains "hammer"
     And at least 1 product is shown
 
-  Scenario: Searching for an unknown term returns no products
-    When I search for "definitely-not-a-real-tool"
+  Scenario Outline: Searching for "<term>" returns matching products
+    When I search for "<term>"
+    Then at least 1 product is shown
+
+    Examples: tool keywords
+      | term        |
+      | pliers      |
+      | wrench      |
+      | screwdriver |
+      | saw         |
+      | drill       |
+      | sander      |
+      | chisel      |
+      | measure     |
+      | safety      |
+      | wood        |
+      | bolt        |
+      | cutter      |
+
+    Examples: case-insensitive
+      | term   |
+      | HAMMER |
+      | Pliers |
+      | wOoD   |
+
+  Scenario Outline: Searching for "<term>" returns no products
+    When I search for "<term>"
     Then 0 products are shown
+
+    Examples:
+      | term                       |
+      | definitely-not-a-real-tool |
+      | zzzzzzzz                    |
+      | 9999-nonexistent           |
