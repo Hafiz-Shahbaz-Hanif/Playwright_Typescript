@@ -57,7 +57,9 @@ test-data/*.ts                   data builders
 npm test                 # bddgen + run every project
 npm run test:ui          # UI (Chromium)
 npm run test:api         # API
-npx bddgen && npx playwright test --grep "@smoke"
+npm run test:smoke       # @smoke across projects
+npm run test:contract    # @contract API shape/time-budget checks
+npm run test:negative    # @negative paths
 npm run allure:generate && npm run allure:open
 npm run lint && npm run typecheck
 ```
