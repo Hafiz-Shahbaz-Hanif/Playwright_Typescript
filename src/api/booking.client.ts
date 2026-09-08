@@ -2,6 +2,7 @@ import { expect, type APIRequestContext, type APIResponse } from '@playwright/te
 import { env } from '../../env/config';
 import { recordCall } from './allure-http';
 import {
+  authResponseSchema,
   bookingIdListSchema,
   bookingSchema,
   createBookingResponseSchema,
@@ -33,10 +34,11 @@ export class BookingClient {
       this.request.post('/auth', { data: { username, password } }),
     );
     expect(res.status(), 'auth should return 200').toBe(200);
-    const body = (await res.json()) as { token?: string; reason?: string };
-    expect(body.token, `auth failed: ${body.reason ?? 'no token'}`).toBeTruthy();
+    const raw = (await res.json()) as { token?: string; reason?: string };
+    expect(raw.token, `auth failed: ${raw.reason ?? 'no token'}`).toBeTruthy();
+    const body = authResponseSchema.parse(raw);
     this.token = body.token;
-    return this.token as string;
+    return body.token;
   }
 
   async tryAuthenticate(username: string, password: string): Promise<APIResponse> {

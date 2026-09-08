@@ -24,5 +24,9 @@ export const createBookingResponseSchema = z.object({
 export const bookingIdSchema = z.object({ bookingid: z.number().int().positive() });
 export const bookingIdListSchema = z.array(bookingIdSchema);
 
+/** Shape of a successful `POST /auth` response. */
+export const authResponseSchema = z.object({ token: z.string().min(1) });
+
 export type Booking = z.infer<typeof bookingSchema>;
 export type CreateBookingResponse = z.infer<typeof createBookingResponseSchema>;
+export type AuthResponse = z.infer<typeof authResponseSchema>;
