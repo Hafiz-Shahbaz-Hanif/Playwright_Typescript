@@ -133,6 +133,15 @@ Then('the update is rejected with status {int}', async ({ world }, status: numbe
   expect(world.lastStatus).toBe(status);
 });
 
+When('I attempt to delete that booking without a token', async ({ bookingClient, world }) => {
+  const res = await bookingClient.deleteWithoutToken(world.bookingId as number);
+  world.lastStatus = res.status();
+});
+
+Then('the delete is rejected with status {int}', async ({ world }, status: number) => {
+  expect(world.lastStatus).toBe(status);
+});
+
 When('I create a booking with a payload missing the price', async ({ bookingClient, world }) => {
   const payload: Record<string, unknown> = { ...aBooking() };
   delete payload.totalprice;

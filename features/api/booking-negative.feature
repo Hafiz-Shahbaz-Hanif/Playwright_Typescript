@@ -32,3 +32,8 @@ Feature: Booking API error handling
     Given a booking exists for "Locked" "Down"
     When I attempt to update that booking without a token
     Then the update is rejected with status 403
+
+  Scenario: Deleting a booking without a token is forbidden
+    Given a booking exists for "Locked" "Delete"
+    When I attempt to delete that booking without a token
+    Then the delete is rejected with status 403

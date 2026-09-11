@@ -116,6 +116,12 @@ export class BookingClient {
     );
   }
 
+  async deleteWithoutToken(id: number): Promise<APIResponse> {
+    return this.timed(`delete booking ${id} (no token)`, 'DELETE', `/booking/${id}`, () =>
+      this.request.delete(`/booking/${id}`),
+    );
+  }
+
   async listBookingIds(): Promise<number[]> {
     const res = await this.timed('list bookings', 'GET', '/booking', () =>
       this.request.get('/booking', { headers: { Accept: 'application/json' } }),
