@@ -143,6 +143,8 @@ All configuration is environment-variable driven with working defaults (`env/con
 | `UI_EMAIL` / `UI_PASSWORD` | demo customer creds | UI login |
 | `API_USERNAME` / `API_PASSWORD` | `admin` / `password123` | Booking API auth |
 
+See [`CHANGELOG.md`](CHANGELOG.md) for what shipped and when.
+
 ---
 
 ## Author
