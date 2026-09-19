@@ -31,7 +31,7 @@
     "@typescript-eslint/eslint-plugin": "^8.8.0",
     "@typescript-eslint/parser": "^8.8.0",
     "allure-commandline": "^2.30.0",
-    "allure-js-commons": "^3.0.4",
+    "allure-js-commons": "^3.12.1",
     "allure-playwright": "^3.0.4",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.1",
