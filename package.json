@@ -28,7 +28,7 @@
   "devDependencies": {
     "@playwright/test": "^1.55.0",
     "@types/node": "^22.7.0",
-    "@typescript-eslint/eslint-plugin": "^8.8.0",
+    "@typescript-eslint/eslint-plugin": "^8.70.0",
     "@typescript-eslint/parser": "^8.8.0",
     "allure-commandline": "^2.30.0",
     "allure-js-commons": "^3.0.4",
