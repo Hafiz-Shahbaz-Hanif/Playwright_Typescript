@@ -2,6 +2,11 @@
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-22
+
+### Added
+- Cancel superseded CI runs on the same branch (`concurrency` group in the workflow).
+
 ## 2026-09-19
 
 ### Added
