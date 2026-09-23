@@ -2,6 +2,13 @@
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-23
+
+### Added
+- Negative coverage: `PATCH /booking` without a token now asserts a 403
+  (`patchWithoutToken` client method + matching step and scenario), closing the
+  last unauthenticated-write gap alongside the existing update/delete checks.
+
 ## 2026-09-22
 
 ### Added

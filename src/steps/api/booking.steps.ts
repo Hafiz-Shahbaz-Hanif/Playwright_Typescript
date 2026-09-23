@@ -138,6 +138,15 @@ When('I attempt to delete that booking without a token', async ({ bookingClient,
   world.lastStatus = res.status();
 });
 
+When('I attempt to patch that booking without a token', async ({ bookingClient, world }) => {
+  const res = await bookingClient.patchWithoutToken(world.bookingId as number, { totalprice: 1 });
+  world.lastStatus = res.status();
+});
+
+Then('the patch is rejected with status {int}', async ({ world }, status: number) => {
+  expect(world.lastStatus).toBe(status);
+});
+
 Then('the delete is rejected with status {int}', async ({ world }, status: number) => {
   expect(world.lastStatus).toBe(status);
 });

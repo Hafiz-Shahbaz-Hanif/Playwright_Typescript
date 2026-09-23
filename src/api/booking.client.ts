@@ -109,6 +109,12 @@ export class BookingClient {
     );
   }
 
+  async patchWithoutToken(id: number, partial: Partial<Booking>): Promise<APIResponse> {
+    return this.timed(`patch booking ${id} (no token)`, 'PATCH', `/booking/${id}`, () =>
+      this.request.patch(`/booking/${id}`, { data: partial, headers: { Accept: 'application/json' } }),
+    );
+  }
+
   async deleteBooking(id: number): Promise<APIResponse> {
     this.assertAuthenticated();
     return this.timed(`delete booking ${id}`, 'DELETE', `/booking/${id}`, () =>
