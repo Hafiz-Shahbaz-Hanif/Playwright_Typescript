@@ -38,7 +38,7 @@ cross-browser execution and **Allure** reporting.
 - **Parallel + cross-browser.** `fullyParallel`, sharded workers, Chromium/Firefox/WebKit projects.
 - **Stable by construction.** Web-first assertions, `expect.poll`, app-emitted readiness
   markers (`search_completed`) instead of hard waits.
-- **Data-driven at scale.** ~140 scenarios, most as `Scenario Outline` tables — e.g. 24
+- **Data-driven at scale.** ~149 scenarios, most as `Scenario Outline` tables — e.g. 24
   create round-trips, 12 full updates, 12 filter lookups, 13 quantity variations — so
   coverage grows by adding a table row, not a test.
 - **Developed with an agentic-AI workflow.** `CLAUDE.md` and `.claude/` define the
@@ -62,7 +62,7 @@ cross-browser execution and **Allure** reporting.
 | API — filter | 12 | `GET /booking?firstname=&lastname=` lookups |
 | API — delete | 6 | delete → 404 |
 | API — auth | 6 | token issued / rejected |
-| API — contract & negative | 13 | schema validation, response-time budget, 4xx/5xx, 403, 404 |
+| API — contract & negative | 15 | schema validation, response-time budget, 4xx/5xx, 403 (update/delete/patch without a token), 404 |
 
 ---
 

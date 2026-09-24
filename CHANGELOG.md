@@ -2,6 +2,14 @@
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-24
+
+### Fixed
+- README coverage numbers had drifted after recent additions (delete/patch
+  without a token): "API — contract & negative" was still showing 13, actual
+  is 15; total scenario count corrected from ~140 to the actual ~149
+  (recounted directly from every `.feature` file).
+
 ## 2026-09-23
 
 ### Added
