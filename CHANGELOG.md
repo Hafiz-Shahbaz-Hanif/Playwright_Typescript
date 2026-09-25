@@ -2,6 +2,11 @@
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-09-25
+
+### Added
+- A `scenarios-149` badge to the README badge row, using yesterday's audited count.
+
 ## 2026-09-24
 
 ### Fixed

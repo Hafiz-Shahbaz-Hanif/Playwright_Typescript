@@ -5,6 +5,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)
 ![BDD](https://img.shields.io/badge/BDD-Cucumber%2FGherkin-23D96C?logo=cucumber&logoColor=white)
 ![Allure](https://img.shields.io/badge/Report-Allure-FF7043)
+![Scenarios](https://img.shields.io/badge/scenarios-149-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 A production-style end-to-end automation framework that exercises both a **web UI** and a
