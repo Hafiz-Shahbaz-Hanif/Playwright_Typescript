@@ -109,11 +109,13 @@ npm run test:headed   # UI suite, headed
 npm run test:all-browsers   # Chromium + Firefox + WebKit
 ```
 
-Filter by tag:
+Filter by tag (each script runs `bddgen` first):
 
 ```bash
-npx bddgen && npx playwright test --grep "@smoke"
-npx bddgen && npx playwright test --grep "@negative"
+npm run test:smoke      # @smoke
+npm run test:contract   # @contract, API project only
+npm run test:negative   # @negative
+npx bddgen && npx playwright test --grep "@auth"   # any other tag, ad hoc
 ```
 
 ## Reports

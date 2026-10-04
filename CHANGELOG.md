@@ -2,6 +2,14 @@
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-10-04
+
+### Fixed
+- README's "Filter by tag" section still showed the long `npx bddgen && npx
+  playwright test --grep ...` form; it now documents the `test:smoke` /
+  `test:contract` / `test:negative` scripts added on 2026-09-07. Each filter was
+  confirmed to select tests with `playwright test --list` (nothing executed).
+
 ## 2026-09-25
 
 ### Added
