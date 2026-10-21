@@ -2,6 +2,20 @@
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## 2026-10-21
+
+### Changed
+- Dependabot config tuned after its first weekly run opened ~9 separate PRs:
+  `playwright`, `@playwright/*` and `playwright-bdd` now move in one PR (they must
+  stay version-compatible); `allure-*` in another; remaining minor/patch bumps are
+  batched; GitHub Actions updates are batched; commit messages use the repo's
+  `chore(deps)` / `ci(deps)` convention.
+- Major bumps of `eslint`, `@typescript-eslint/*` and `typescript` are no longer
+  auto-proposed: the lint config is `.eslintrc.json` (ESLint 10 no longer ships the
+  eslintrc loader) and typescript-eslint 8.x declares support for TypeScript
+  `>=4.8.4 <6.1.0`, so TypeScript 7 is outside its range. Both need a deliberate
+  migration. The config was validated against the official Dependabot JSON schema.
+
 ## 2026-10-04
 
 ### Fixed
